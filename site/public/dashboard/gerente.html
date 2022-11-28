@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../css/img/logo2.png">
+    <link rel="stylesheet" href="../css/body.css">
+    <link rel="stylesheet" href="../css/root.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/gerente.css">
+    <link rel="stylesheet" href="../css/cabecalho_dash.css">
+    <link rel="icon" href="../css/img/icon.png">
+    <title>Dashboard</title>
+    <script src="../js/funcoes.js"></script>
+
+</head>
+
+<!-- <body onload="validarSessao()"> -->
+
+<!-- Início cabeçalho -->
+
+    <div class="cabecalho">
+        <div class="container_cabecalho">
+            <div class="itens_cabecalho">
+                <a href="index.html"><img src="../css/img/logo branco.png" alt="Logo do Site" class="logo_cabecalho"></a>
+                <p class="texto" id="nome"></p>
+                <img src="../css/img/gerente.png" alt="" id="foto_dash">
+                <a href="index.html"><img src="../css/img/saida.png" alt="" id="exit"></a>
+            </div>
+        </div>
+    </div>
+
+<!-- Fim cabeçalho -->
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+<!-- Início máquinas -->
+
+<h1>Linha Azul</h1>
+
+    <div class="maquinas">
+        <div class="totens">
+            <div class="cards_totens">
+                <div class="metro_e_nome">
+                    <img class="metro" src="css/img/metro.png" alt="">
+                    Sé
+                </div>
+                    <div class="num_e_pcs">
+                        <div class="pcs">
+                            <img class="pc_totem" src="../css/img/computador_bom.png"></img>
+                            <img class="pc_totem" src="../css/img/computador_alerta.png"></img>
+                            <img class="pc_totem" src="../css/img/computador_critico.png"></img>
+                            <img class="pc_totem" src="../css/img/computador_inativo.png"></img>
+                        </div>
+                        <div class="num_pc">
+                            <p>5</p>
+                            <p>0</p>
+                            <p>0</p>
+                            <p>2</p>
+                        </div>
+                </div>
+            </div>
+
+            <div class="cards_totens">
+                <div class="metro_e_nome">
+                    <img class="metro" src="css/img/metro.png" alt="">
+                    Paraíso
+                </div>
+                    <div class="num_e_pcs">
+                        <div class="pcs">
+                            <img class="pc_totem" src="../css/img/computador_bom.png"></img>
+                            <img class="pc_totem" src="../css/img/computador_alerta.png"></img>
+                            <img class="pc_totem" src="../css/img/computador_critico.png"></img>
+                            <img class="pc_totem" src="../css/img/computador_inativo.png"></img>
+                        </div>
+                        <div class="num_pc">
+                            <p>3</p>
+                            <p>2</p>
+                            <p>1</p>
+                            <p>4</p>
+                        </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+<!-- Fim máquinas -->
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+<!-- Início legenda -->
+    <div class="legenda">
+        <div class="itens_legenda">
+            <div class="kpi">
+                <div class="alerta bom"></div>
+                <p class="texto_legenda">Bom</p>
+            </div>
+            <div class="kpi">
+                <div class="alerta atencao"></div>
+                <p class="texto_legenda">Atenção</p>
+            </div>
+            <div class="kpi">
+                <div class="alerta ruim"></div>
+                <p class="texto_legenda">Crítico</p>
+            </div>
+            <div class="kpi">
+                <div class="alerta inativo"></div>
+                <p class="texto_legenda">Inativo</p>
+            </div>
+        </div>
+    </div>
+    
+    <img src="../css/img/help.png" id="help" onmouseover="btn_help()" onmouseleave="btn_help_sair()"></img>
+<div id="sumir" style="display: none;">
+    <div id="explicacao">
+        <div class="explicacao">
+            <div class="alerta bom"></div>
+            <p class="texto_legenda"> - Todos os hardwares em bom estado!</p>
+        </div>
+        <div class="explicacao">
+            <div class="alerta atencao"></div>
+            <p class="texto_legenda"> - 1 dos hardwares está com problemas!</p>
+        </div>
+        <div class="explicacao">
+            <div class="alerta ruim"></div>
+            <p class="texto_legenda"> - 2 ou mais hardwares estão com problemas!</p>
+        </div>
+        <div class="explicacao">
+            <div class="alerta inativo"></div>
+            <p class="texto_legenda"> - Nenhum hardware está funcionando!</p>
+        </div>
+    </div>
+    <div id="invi">
+        <button id="btn_invi"></button>
+    </div>
+</div>
+<!-- Fim legenda -->
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+</body>
+</html>
+
+<script>
+    function mostrarNome() {
+        var usuario = "Undefined"
+        nome.innerHTML = "Olá " + usuario
+    }
+    mostrarNome()
+    
+    function btn_totem() {
+        window.open('maquina.html')
+    }
+
+    function btn_help() {
+        sumir.style.display = 'block';
+    }
+
+    function btn_help_sair() {
+        sumir.style.display = 'none';
+    }
+</script>

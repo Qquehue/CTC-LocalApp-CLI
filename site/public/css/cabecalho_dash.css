@@ -1,0 +1,52 @@
+.cabecalho{
+    /* border: 1px solid white; */
+    width: 100%;
+    height: 16vh;
+}
+.container_cabecalho {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.logo_cabecalho{
+    display: flex;
+    position: absolute;
+    left: 5%;
+    top: 2%;
+    height: 6vw;
+}
+.texto{
+    color: var(--branco); 
+    display: flex;
+    flex-direction: row;
+    text-align: justify;
+    font-size: 1.4vw;
+    font-family: var(--letra);
+    text-indent: 3vw;
+    padding-right:4vw;
+}
+.itens_cabecalho{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100vw;
+}
+#foto_dash{
+    width: 5vw;
+    border-radius: 100%;
+    position: absolute;
+    top: 2%;
+    right: 13%;
+}
+#exit{
+    width: 3vw;
+    position: absolute;
+    right: 7%;
+    top: 4%;
+    cursor: pointer;
+}
+#nome{
+    position: absolute;
+    left: 10%;
+    top: 5.5%;
+}

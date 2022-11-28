@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="icon" href="css/img/icon.png">
+    <link rel="stylesheet" href="css/body.css">
+    <!-- <link rel="stylesheet" href="css/cabecalho.css"> -->
+    <!-- <link rel="stylesheet" href="css/rodape.css"> -->
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/root.css">
+</head>
+
+<body>
+
+    <!------------------------------------------------------------------------------------------------------------->
+
+    <!-- Início Login Card -->
+    <div class="div_login">
+        <div class="login_card">
+            <div class="home">
+                <a href="index.html">
+                    <h2>🠔 Home</h2>
+                </a>
+                <img src="css/img/logo azul escuro.png" alt="Logo CTC">
+            </div>
+            <div class="container_cardLogin">
+                <h2>Login</h2>
+                <input type="text" class="ipt_login" placeholder="E-mail" id="ipt_email">
+                <input type="password" class="ipt_login" placeholder="Senha" id="ipt_senha">
+                <button onclick="logar()" class="btn_logar">Logar</button>
+                <div id="validar"></div>
+                <p class="texto_card">Você não possui uma conta? <a href="cadastro.html"
+                        class="texto_card"><b><u>Cadastre-se</u></b></a></p>
+            </div>
+        </div>
+
+        <!-- Fim Login Card -->
+
+        <!------------------------------------------------------------------------------------------------------------->
+
+        <!-- Início da Imagem Login -->
+
+        <div class="imagem_login">
+            <img src="css/img/imagem login.jpg" alt="Imagem Login">
+            <!-- <label><img src="css/img/logo branco.png" alt="Logo CTC"></label> -->
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+
+
+    function logar() {
+
+        var emailVar = ipt_email.value;
+        var senhaVar = ipt_senha.value;
+
+        if (emailVar == "" || senhaVar == "") {
+
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nomeFuncionario;
+                    sessionStorage.ID_USUARIO = json.idUsuario;
+                    sessionStorage.COR_LINHA =json.nomeLinha;
+                    sessionStorage.NOME_ESTACAO =json.nomeEstacao;
+
+                    setTimeout(function () {
+                        window.location = "/dashboard/caminhoes.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+                validar.innerHTML = '*Insira seus dados corretamente*'
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        validar.innerHTML = ""
+    }
+
+</script>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../css/img/logo2.png">
+    <link rel="stylesheet" href="../css/body.css">
+    <link rel="stylesheet" href="../css/root.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/chamado.css">
+    <link rel="stylesheet" href="../css/cabecalho_dash.css">
+    <link rel="icon" href="../css/img/icon.png">
+    <title>Chamado</title>
+
+</head>
+
+<body onload="validarSessao()" style="background-color: var(--preto2);">
+
+<!-- Início cabeçalho -->
+
+    <div class="cabecalho">
+        <div class="container_cabecalho">
+            <div class="itens_cabecalho">
+                <img src="../css/img/logo branco.png" alt="Logo do Site" class="logo_cabecalho">
+                <p class="texto" id="nome"></p>
+                <img src="../css/img/yuri.png" alt="" id="foto_dash">
+                <!-- <a href="index.html"><img src="css/img/saida_azul.png" alt="" id="exit"></a> -->
+            </div>
+        </div>
+    </div>
+
+<!-- Fim cabeçalho -->
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+<!-- Início card -->
+    <div id="card" style="border-radius: 10%; margin-bottom: 0;">
+        <h1>Cadastro de Totem</h1>
+        <p class="label">Modelo da CPU <span class="asterisco">*</span></p>
+        <select name="" id="modelo_cpu" class="input box">
+            <option value=""> -- Modelo CPU -- </option>
+            <option value="Pentium">Intel Pentium</option>
+            <option value="i3">Intel core i3</option>
+            <option value="i5">Intel core i5</option>
+        </select>
+        <p class="label">Capacidade de memória HD (Em GB):  <span class="asterisco">*</span></p>
+        <input class="input" type="number" placeholder="Ex: 500,0 Certifique-se da vírgula" id="ipt_hd">
+        <p class="label">Capacidade de memória Ram (Em GB):  <span class="asterisco">*</span></p>
+        <input class="input" type="number" placeholder="Ex: 8,0 Certifique-se da vírgula" id="ipt_ram">
+
+        <button class="btn_enviar" onclick="cadastrar()">Cadastrar</button>
+        <div id="div_validacao" style="color:red; text-align: center; margin-top: 3%;"></div>
+    </div>
+
+    <!-- <img class="img_card" src="css/img/boneco.png" alt=""> -->
+<!-- Fim card -->
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+<!-- Início legenda -->
+
+    <!-- <a href="dashboard.html"> <img src="css/img/casa_azul.png" id="casa"></img> </a>
+    <a href="help.html"> <img src="css/img/help_azul.png" id="help"></img> </a> -->
+
+<!-- Fim legenda -->
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+</body>
+</html>
+
+<script>
+
+    function cadastrar() {
+
+    var modeloCPUVar = modelo_cpu.value;
+    var totalDiscoVar = ipt_hd.value;
+    var totalMemoriaVar = ipt_ram.value;
+
+    if (modeloCPUVar.value == "") {
+    div_validacao.innerHTML = "* Selecione um modelo de CPU *"
+    }
+    else if (totalDiscoVar == "") {
+        div_validacao.innerHTML = "* Adicione um valor em HD *"
+    }
+    else if (totalDiscoVar.indexOf(",") == -1) {
+        div_validacao.innerHTML = "* Adicione uma vírgula em HD *"  
+    }
+    else if (totalMemoriaVar == "") {
+        div_validacao.innerHTML = "* Adicione um valor em Ram *"
+    }
+    else if (totalMemoriaVar.indexOf(",") == -1) {
+        div_validacao.innerHTML = "* Adicione uma vírgula em Ram*"  
+    }
+    else{
+        div_validacao.innerHTML = ""
+        alert('* Cadastrado com sucesso *')
+        setInterval(sumirMensagem, 5000)
+    fetch("/totem/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+
+            modeloCPUServer: modeloCPUVar,
+            totalMemoriaServer: totalMemoriaVar,
+            totalDiscoServer: totalDiscoVar,
+        })
+    }).then(function (resposta) {
+
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+            setTimeout(() => {
+                window.location = "caminhoes.html";
+            }, "2000")
+            
+            limparFormulario();
+            finalizarAguardar();
+        } else {
+            throw ("Houve um erro ao tentar realizar o cadastro!");
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+    });
+
+    return false;
+    }
+}
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
+</script>

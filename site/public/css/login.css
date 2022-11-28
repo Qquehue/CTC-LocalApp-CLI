@@ -1,0 +1,214 @@
+/* mobile */
+
+@media screen and (max-width:500px){
+    .div_login{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100vh;
+        background-image: url(img/imagem\ login.jpg);
+        background-size: cover;
+        background-position: center;
+        align-items: center;
+    }
+    .login_card{
+        display: flex;
+        width: 80%;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 10%;
+        background: var(--branco);
+        padding: 1vw;
+        top:10%;
+    }
+    
+    .home {
+        display: flex;
+        height: 10vh;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    
+    .home a {
+        display: flex;
+        text-decoration: none;
+        font-family: var(--letra);
+        color: var(--preto2);
+        margin-left: 5%;
+    }
+    
+    .home img{
+        display: none;
+    }
+    
+    .container_cardLogin{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .ipt_login{
+        width: 60vw;
+        height: 10vw;
+        text-align: left;
+        background-color: transparent;
+        color: var(--preto2);
+        border-radius: 4px;
+        border: 2px solid var(--preto2);
+        margin: 6vw 0;
+        font-size: 6vw;
+    }
+    
+    
+    .texto_card{
+        font-size: 6vw;
+        color: black;
+        font-family: var(--letra);
+        margin-top: 8vh;
+        text-align: center;
+    }
+    
+    h2{
+        color: var(--preto);
+        font-family: var(--letra);
+        font-size: 10vw;
+    }
+    
+    .btn_logar{
+        width: 30vw;
+        height: 6vh;
+        border-radius: 10vw;
+        background-color: var(--preto2);
+        color: var(--branco);
+        font-size: 3vw;
+        border-color: transparent;
+        font-family: var(--letra);
+        text-align: center;
+        transition: 0.3s;
+    }
+    
+    .btn_logar:hover{
+        font-size: 1.5vw;
+        background-color: var(--preto2);
+        color: var(--branco);
+        cursor: pointer;
+    }
+    
+    .imagem_login{
+        display: none;
+    }
+    
+    #validar{
+        color: var(--preto2);
+    }
+}
+
+/* Computador */
+
+@media screen and (min-width: 500px){
+.div_login{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+.login_card{
+    display: flex;
+    width: 40%;
+    justify-content: center;
+    flex-direction: column;
+    background: var(--branco);
+    padding: 1vw;
+}
+
+.home {
+    display: flex;
+    width: 100%;
+    height: 20vh;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.home a {
+    display: flex;
+    text-decoration: none;
+    font-family: var(--letra);
+    color: var(--preto2);
+    margin-left: 5%;
+    margin-top: 2%;
+}
+
+.home img{
+    display: flex;
+    width: 7vw;
+    margin-right: 5%;
+}
+
+.container_cardLogin{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ipt_login{
+    width: 22vw;
+    height: 2vw;
+    text-align: left;
+    background-color: transparent;
+    color: var(--preto2);
+    border-radius: 4px;
+    border: 2px solid var(--preto2);
+    margin: 1vw 0;
+}
+
+
+.texto_card{
+    font-size: 16px;
+    color: black;
+    font-family: var(--letra);
+    margin-top: 20vh;
+    text-align: center;
+}
+
+h2{
+    color: var(--preto);
+    font-family: var(--letra);
+    padding: 0;
+    font-size: 25px;
+}
+
+.btn_logar{
+    width: 12vw;
+    height: 6vh;
+    border-radius: 10vw;
+    background-color: var(--preto2);
+    color: var(--branco);
+    font-size: 1.4vw;
+    border-color: transparent;
+    font-family: var(--letra);
+    text-align: center;
+    transition: 0.3s;
+}
+
+.btn_logar:hover{
+    font-size: 1.5vw;
+    background-color: var(--preto2);
+    color: var(--branco);
+    cursor: pointer;
+}
+
+.imagem_login{
+    background-color: var(--preto2);
+    display: flex;
+    height: 100vh;
+}
+
+#validar{
+    color: var(--preto2);
+}
+}

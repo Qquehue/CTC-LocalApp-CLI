@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../css/img/logo2.png">
+    <link rel="stylesheet" href="../css/body.css">
+    <link rel="stylesheet" href="../css/root.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/maquina.css">
+    <link rel="stylesheet" href="../css/cabecalho_dash.css">
+    <link rel="icon" href="../css/img/icon.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/funcoes.js"></script>
+
+    <title>Detalhes do totem</title>
+</head>
+
+<!-- <body onload="validarSessao()"> -->
+
+<!-- Início cabeçalho -->
+
+    <div class="cabecalho">
+        <div class="container_cabecalho">
+            <div class="itens_cabecalho">
+                <img src="../css/img/logo branco.png" alt="Logo do Site" class="logo_cabecalho">
+                <p class="texto" id="nome"></p>
+                <img src="../css/img/analista.png" alt="" id="foto_dash">
+                <!-- <a href="index.html"><img src="css/img/saida.png" alt="" id="exit"></a> -->
+            </div>
+        </div>
+    </div>
+
+<!-- Fim cabeçalho -->
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+<!-- Início especificações -->
+    <div id="dados">
+        <div id="especificacoes">
+            <div id="pc">
+                <img class="estado" src="../css/img/computador_inativo.png" alt="Imagem computador">
+            </div>    
+            <div id="informacoes">
+                <p class="info">Informações:</p>
+                <div class="info1">
+                    <b>id:</b><span class="dado"> M1</span>
+                </div>
+                <div>
+                    <b>CPU:</b> <span class="dado">  Intel core i3 4790k</span>
+                </div>
+                <div>
+                    <b>RAM:</b> <span class="dado"> 8GB DDR3</span>
+                </div>
+                <div class="info1">
+                    <b>Data da implantação:</b> <span class="dado"> 10/10/2022</span>
+                </div>
+                <div>
+                    <b>Linha:</b> <span class="dado"> Azul</span>
+                </div>
+                <div>
+                    <b>Estação:</b> <span class="dado"> Sé</span>
+                </div>
+            </div>
+
+            <div id="legenda">
+                <div class="itens_legenda">
+                    <div class="kpi">
+                        <div class="alerta bom" onmouseover="mostrarBom()" onmouseleave="sumirDiv()"></div>
+                    </div>
+                    <div class="kpi">
+                        <div class="alerta atencao" id="atencao" onmouseover="mostrarAtencao()" onmouseleave="sumirDiv()"></div>
+                    </div>
+                    <div class="kpi">
+                        <div class="alerta ruim" id="ruim" onmouseover="mostrarRuim()" onmouseleave="sumirDiv()"></div>
+                    </div>
+                    <div class="kpi">
+                        <div class="alerta inativo" id="inativo" onmouseover="mostrarInativo()" onmouseleave="sumirDiv()"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="estados" style="display: block;">
+                <div id="p_estados">
+
+                </div>
+            </div>
+
+        </div>
+        <div id="graficos">
+            <div id="graficos_cima">
+                <!-- GRAFICO CPU -->
+                <div class="grafico" id="graficoCpu">
+                    <canvas id="myChart1"></canvas>
+                </div>
+                <!-- GRAFICO HD -->
+                <div class="grafico" id="graficoRam">
+                    <canvas id="myChart2"></canvas>
+                </div>
+            </div>
+
+            <div id="graficos_baixo">
+                <!-- GRAFICO RAM -->
+                <div class="grafico" id="processos">
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Fim especificações -->
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+<!-- Início legenda -->
+
+    <button id="btn_relatorio" onclick="btn_relatorio()">Abrir chamado</button>
+    <!-- <a href="help.html"> <img src="css/img/help.png" id="help"></img> </a>
+    <a href="dashboard.html"> <img src="css/img/casa.png" id="casa"></img> </a> -->
+
+<!-- Fim legenda -->
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+</body>
+</html>
+<script>
+    function btn_relatorio() {
+        window.open('chamado.html')
+    }
+</script>
+<script>
+    function mostrarBom() {
+        estados.style.display = 'block';
+        p_estados.innerHTML = "Consumo cpu < 60% e Consumo de Ram < 60%"
+    }
+    function mostrarAtencao() {
+        estados.style.display = 'block';
+        p_estados.innerHTML = "Consumo cpu entre 61% e 70% Consumo de Ram < 60%"
+    }
+    function mostrarRuim() {
+        estados.style.display = 'block';
+        p_estados.innerHTML = ""
+    }
+    function mostrarInativo() {
+        estados.style.display = 'block';
+        p_estados.innerHTML = ""
+    }
+    function sumirDiv() {
+        estados.style.display = 'none';
+    }
+    const ctx1 = document.getElementById('myChart1').getContext('2d');
+    const myChart1 = new Chart(ctx1, {
+        type: 'line',
+        data: {
+            labels: [
+                '12:00',
+                '13:00',
+                '14:00',
+                '15:00',
+                '16:00',
+                '17:00',
+                '18:00',
+                '19:00',
+                '20:00',
+                '21:00',
+                '22:00',
+                '23:00',
+            ],
+            datasets: [{
+                label: 'Uso CPU (%)',
+                data: [45, 10, 80, 8, 53, 10, 70, 16, 75, 28, 59, 90],
+                backgroundColor: [
+                    'lightblue',
+                ],
+                borderColor: [
+                    'lightskyblue',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    // beginAtZero: false
+                    min: 0,
+                    max: 100    
+                    
+                }
+            }
+        }
+    });
+</script>
+<script>
+    const ctx2 = document.getElementById('myChart2').getContext('2d');
+    const myChart2 = new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: [
+                '12:00',
+                '13:00',
+                '14:00',
+                '15:00',
+                '16:00',
+                '17:00',
+                '18:00',
+                '19:00',
+                '20:00',
+                '21:00',
+                '22:00',
+                '23:00'
+                ],
+            datasets: [{
+                label: 'Uso de memória Ram(%)',
+                data: [5, 30, 10, 80, 20, 50, 89, 54, 78, 20, 50, 38],
+                backgroundColor: [
+                    'purple'
+                ],
+                borderColor: [
+                    'purple'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    // beginAtZero: false,
+                    min: 0,
+                    max: 100
+                    
+                }
+            }
+        }
+    });
+</script>
+<script>
+    const ctx3 = document.getElementById('myChart3').getContext('2d');
+    const myChart3 = new Chart(ctx3, {
+        type: 'pie',
+        data: {
+            labels: ['Disco em uso (%)',
+                'Disco disponível (%)'],
+            datasets: [{
+                label: 'Uso de Disco (%)',
+                data: [80, 20],
+                backgroundColor: [
+                    'steelblue',
+                    '#444444',
+                ],
+                borderColor: [
+                    'white',
+                    'white',
+                ],
+                borderWidth: 1
+            }]
+        },
+    });
+</script>

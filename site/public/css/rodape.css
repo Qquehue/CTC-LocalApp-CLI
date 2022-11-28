@@ -1,0 +1,71 @@
+/* mobile */
+
+@media screen and (max-width:500px){
+    .rodape {
+        background: var(--preto2);
+        margin-top: 5vh;
+        color: var(--branco);
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        height: 35vh;
+    }
+    
+    .texto_rodape{
+        font-family: var(--letra);
+        font-size: 5vw;
+    }
+    
+    .contato{
+        margin-left: 1.5vw;
+    }
+    
+    #contato{
+        font-weight: bold;
+        font-size: 6vw;
+        margin-top: 1vh;
+        margin-bottom: 1.5vh;
+    }
+    
+    .texto_rodape_index{
+        width: 100%;
+        text-align: center;
+        background-color: var(--preto2);
+    }
+    
+    #email{
+        margin-bottom: 2vh;
+    }
+}
+
+/* Computador */
+
+@media screen and (min-width: 500px){
+
+.rodape {
+    background: var(--preto2);
+    margin-top: 5vh;
+    color: var(--branco);
+    bottom: 0;
+    left: 0;
+    padding: 1vw;
+}
+
+.texto_rodape{
+    font-family: var(--letra);
+    font-size: 1vw;
+}
+
+#contato{
+    font-weight: bold;
+    font-size: 2vw;
+}
+
+.texto_rodape_index{
+    text-align: center;
+}
+
+#email{
+    margin-bottom: 2vh;
+}
+}

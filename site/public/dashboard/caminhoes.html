@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="shortcut icon" href="../assets/icon/favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="icon" href="../css/img/logo2.png">
+    <link rel="stylesheet" href="../css/body.css">
+    <link rel="stylesheet" href="../css/root.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/cabecalho_dash.css">
+    <link rel="icon" href="../css/img/icon.png">
+    <script src="../js/funcoes.js"></script>
+    <!-- <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+    <script src="../js/funcoes.js"></script> -->
+</head>
+</head>
+<!-- <body onload="exibirMuitos(), validarSessao()"> -->
+<!-- <body onload="exibirMuitos(), validarSessao(), atualizacaoPeriodica()"> -->
+
+    <main>
+        <div class="cabecalho">
+            <div class="container_cabecalho">
+                <div class="itens_cabecalho">
+                    <a href="../index.html"><img src="../css/img/logo branco.png" alt="Logo do Site" class="logo_cabecalho"></a>
+                    <p class="texto" id="nome"></p>
+                    <img src="../css/img/analista.png" alt="" id="foto_dash">
+                    <img src="../css/img/saida.png" alt="" id="exit" onclick="limparSessao()">
+                </div>
+            </div>
+        </div>
+
+        <div id="estrutura">
+            <div class="maquinas">
+                <h1 id= "linha"></h1>
+                <div class="totens" id="div_muitos_botoes" >
+                </div>
+            </div>
+        </div>
+
+        <div class="legenda">
+            <div class="itens_legenda">
+                <div class="kpi">
+                    <div class="alerta bom"></div>
+                    <p class="texto_legenda">Bom</p>
+                </div>
+                <div class="kpi">
+                    <div class="alerta atencao"></div>
+                    <p class="texto_legenda">Atenção</p>
+                </div>
+                <div class="kpi">
+                    <div class="alerta ruim"></div>
+                    <p class="texto_legenda">Crítico</p>
+                </div>
+                <div class="kpi">
+                    <div class="alerta inativo"></div>
+                    <p class="texto_legenda">Inativo</p>
+                </div>
+            </div>
+        </div>
+
+        <img src="../css/img/help.png" id="help" onmouseover="btn_help()" onmouseleave="btn_help_sair()"></img>
+
+        <div id="sumir" style="display: none;">
+            <div id="explicacao">
+                <div class="explicacao">
+                    <div class="alerta bom"></div>
+                    <p class="texto_legenda"> - Consumo de Memoria Ram < X% - Consumo de HD < X% da capacidade - Consumo de CPU < X%</p>
+                </div>
+                <div class="explicacao">
+                    <div class="alerta atencao"></div>
+                    <p class="texto_legenda"> - Consumo de Memoria Ram > X% e < X% ou Consumo de HD > X% e < X% ou Consumo de CPU > X% e < X%</p>
+                </div>
+                <div class="explicacao">
+                    <div class="alerta ruim"></div>
+                    <p class="texto_legenda"> - Consumo de Memoria Ram > X% ou Consumo de HD > X% da capacidade ou Consumo de CPU > X%</p>
+                </div>
+                <div class="explicacao">
+                    <div class="alerta inativo"></div>
+                    <p class="texto_legenda"> - Nenhum hardware está funcionando!</p>
+                </div>
+            </div>
+            <div id="invi">
+                <button id="btn_invi"></button>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>
+
+
+<script>
+    exibirMuitos();
+    atualizacaoPeriodica();
+
+    var lista = []
+    var ultimaTemp =[];
+
+    // mostrar e plotar totens
+    function exibirMuitos() {
+        nome.innerHTML = `Olá ${sessionStorage.NOME_USUARIO}`;
+        linha.innerHTML= `Linha ${sessionStorage.COR_LINHA} - Estação ${sessionStorage. NOME_ESTACAO}`;
+        fetch("/dash/listarCaminhao", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO listar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+                resposta.json().then(json => {
+                    console.log(json);
+                    // console.log(json.length)
+                    // console.log(JSON.stringify(json));
+                    lista = [];
+                    
+                    for(let i = 0; i < json.length; i ++ ){
+                        lista.push(json[i]);
+                        console.log(`cadastro ${i}`)
+                        // o nome de cada botao retorna assim
+                        console.log(lista[i])
+                    }
+                    mostrarCaminhao();
+                });
+            } else {
+                console.log("Houve um erro ao tentar realizar o listar!");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+    function mostrarCaminhao(){
+        if (lista.length != -1) {
+            div_muitos_botoes.innerHTML = ``
+
+            for (let i = 0; i < lista.length; i++) {
+                div_muitos_botoes.innerHTML += `
+                <div class="cards_totens"> <button class="botao_totem" onclick="mostrar_dash(${lista[i].idMaquina})"></button></div>
+                `
+            }
+        }
+    }
+
+    function mostrar_dash(idMaquina){
+        window.open("http://localhost:3333/dashboard/maquina.html");
+        localStorage.idMaquina = idMaquina;
+    }
+
+    // buscar dados e alterar kpis
+
+    // function atualizacaoPeriodica() {
+    //     var idEmpresa = sessionStorage.FK_EMPRESA;
+    //     obterdados(idEmpresa);
+    //     function sendData() {
+	// 		var http = new XMLHttpRequest();
+	// 		http.open('POST', 'http://localhost:3000/api/sendData', false);
+	// 		http.send(null);
+    //         KPI();
+	// 	}
+    //     setInterval(() => {
+	// 		sendData();
+    //         KPI();
+	// 	}, 100000);
+    //     setTimeout(atualizacaoPeriodica, 100000);
+    // }
+    // function obterdados(idEmpresa) {
+    //     console.log(idEmpresa)
+    //     fetch(`/medidas/em-tempo-real/${idEmpresa}`)
+    //         .then(resposta => {
+    //             if (resposta.ok) {
+    //                 // zerando a list
+    //                 ultimaTemp = [];
+    //                 resposta.json().then(resposta => {
+    //                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+    //                     var dados = {
+    //                         temperatura: resposta[0].temperatura,
+    //                     }
+
+    //                     for(let i = 0; i < resposta.length; i ++ ){
+    //                         ultimaTemp.push(resposta[i]);
+    //                     console.log(`cadastro temp ${i}`)
+    //                     // o nome de cada botao retorna assim
+    //                     console.log(ultimaTemp[i])
+    //                 }
+    //                 KPI();
+
+    //                     // alertar(resposta[0].temperatura, idCaminhao);
+    //                 });
+    //             } else {
+    //                 console.error('Nenhum dado encontrado ou erro na API');
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+    //             KPI();
+    //         });
+    // }
+
+    // function alertar(temperatura, idCaminhao) {
+    //     var limites = {
+    //         muito_quente: 23,
+    //         quente: 22,
+    //         ideal: 20,
+    //         frio: 10,
+    //         muito_frio: 5
+    //     };
+    //     var classe_temperatura = 'cor-alerta';
+    //     if (temperatura >= limites.muito_quente) {
+    //         classe_temperatura = 'cor-alerta perigo-quente';
+    //         console.log("caiu no 1")
+    //     }
+    //     else if (temperatura < limites.muito_quente && temperatura >= limites.quente) {
+    //         classe_temperatura = 'cor-alerta alerta-quente';
+    //         console.log("caiu no 2")
+    //     }
+    //     else if (temperatura < limites.quente && temperatura > limites.frio) {
+    //         classe_temperatura = 'cor-alerta ideal';
+    //         console.log("caiu no 3")
+    //     }
+    //     else if (temperatura <= limites.frio && temperatura > limites.muito_frio) {
+    //         classe_temperatura = 'cor-alerta alerta-frio';
+    //         console.log("caiu no 4")
+    //     }
+    //     else if (temperatura < limites.min_temperatura) {
+    //         classe_temperatura = 'cor-alerta perigo-frio';
+    //         console.log("caiu no 5")
+    //     }
+    //     var card;
+    //     if (idCaminhao == 1) {
+    //         temp_aquario_1.innerHTML = temperatura + "°C";
+    //         card = card_1
+    //     } else if (idCaminhao == 2) {
+    //         temp_aquario_2.innerHTML = temperatura + "°C";
+    //         card = card_2
+    //     } else if (idCaminhao == 3) {
+    //         temp_aquario_3.innerHTML = temperatura + "°C";
+    //         card = card_3
+    //     } else if (idCaminhao == 4) {
+    //         temp_aquario_4.innerHTML = temperatura + "°C";
+    //         card = card_4
+    //     }
+    //     // alterando
+    //     card.className = classe_temperatura;
+    // }
+
+    function btn_totem() {
+        window.open('maquina.html')
+    }
+
+    function btn_help() {
+        sumir.style.display = 'block';
+    }
+
+    function btn_help_sair() {
+        sumir.style.display = 'none';
+    }
+</script> 

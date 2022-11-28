@@ -1,0 +1,176 @@
+/* mobile */
+
+@media screen and (max-width:500px){
+    .corpo_sobre{
+        margin: 27vw 10vw 5vw 10vw;
+        padding: 2%;
+    }
+    
+    .texto_sobre{
+        color: var(--preto2); 
+        display: flex;
+        flex-direction: row;
+        text-align: justify;
+        font-size: 4vw;
+        font-family: var(--letra);
+        text-indent: 3vw;
+        margin-bottom: 1vw;
+    }
+    
+    .titulo_sobre{
+        color: var(--azulclaro);
+        text-align: center;
+        font-size: 6vw;
+        font-family: var(--letra);
+        font-weight: bold;
+        margin-bottom: 1vw;
+    }
+    .corpo_equipe{
+        margin: 0 0 5vw 0;
+        padding: 2%;
+    }
+    .corpo_fotos{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 5vw;
+    }
+    .corpo_fotos2{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+    .legendas{
+        color: var(--preto2);
+        font-family: var(--letra);
+        font-weight: bold;
+        font-size: 2.6vw;
+    }
+    .corpo_legenda{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .corpo_legenda2{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+    .fotos{
+        width: 15vw;
+        border-radius: 100vw;
+    }
+    #a{
+        width: 18vw;
+        text-align: center;
+    }
+    #g{
+        width: 18vw;
+        text-align: center;
+    }
+    #l{
+        width: 18vw;
+        text-align: center;
+    }
+    #v{
+        width: 18vw;
+        text-align: center;
+    }
+    #y{
+        width: 18vw;
+        text-align: center;
+    }
+}
+
+/* Computador */
+
+@media screen and (min-width: 500px){
+.corpo_sobre{
+    margin: 8vw 10vw 0 10vw;
+    padding: 2%;
+}
+
+.texto_sobre{
+    color: var(--preto2); 
+    display: flex;
+    flex-direction: row;
+    text-align: justify;
+    font-size: 1.2vw;
+    font-family: var(--letra);
+    text-indent: 3vw;
+    margin-bottom: 1vw;
+}
+
+.titulo_sobre{
+    color: var(--azulclaro);
+    text-align: center;
+    font-size: 2vw;
+    font-family: var(--letra);
+    font-weight: bold;
+    margin-bottom: 1vw;
+}
+
+.corpo_equipe{
+    margin: 0 0 5vw 0;
+    padding: 2%;
+}
+.corpo_fotos{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 5vw;
+}
+.corpo_fotos2{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.legendas{
+    color: var(--preto2);
+    font-family: var(--letra);
+    font-weight: bold;
+    font-size: 1.3vw;
+}
+.corpo_legenda{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.corpo_legenda2{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.fotos{
+    width: 15vw;
+    border-radius: 100vw;
+}
+#a{
+    width: 15vw;
+    text-align: center;
+}
+#g{
+    width: 15vw;
+    text-align: center;
+}
+#l{
+    width: 15vw;
+    text-align: center;
+}
+#v{
+    width: 15vw;
+    text-align: center;
+}
+#y{
+    width: 15vw;
+    text-align: center;
+}
+}

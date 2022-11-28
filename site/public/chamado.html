@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="css/img/logo2.png">
+    <link rel="stylesheet" href="css/body.css">
+    <link rel="stylesheet" href="css/root.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/chamado.css">
+    <link rel="stylesheet" href="css/cabecalho_dash.css">
+    <link rel="icon" href="css/img/icon.png">
+    <title>Chamado</title>
+</head>
+
+<body onload="validarSessao()">
+
+<!-- Início cabeçalho -->
+
+    <div class="cabecalho">
+        <div class="container_cabecalho">
+            <div class="itens_cabecalho">
+                <img src="css/img/logo azul escuro.png" alt="Logo do Site" class="logo_cabecalho">
+                <p class="texto" id="nome"></p>
+                <img src="css/img/yuri.png" alt="" id="foto_dash">
+                <!-- <a href="index.html"><img src="css/img/saida_azul.png" alt="" id="exit"></a> -->
+            </div>
+        </div>
+    </div>
+
+<!-- Fim cabeçalho -->
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+<!-- Início card -->
+    <div id="card">
+        <h1>Chamado</h1>
+        <p class="label">ID da máquina: XXXX</p>
+        <p class="label">Nome <span class="asterisco">*</span></p>
+        <input class="input" type="text">
+        <p class="label">Email <span class="asterisco">*</span></p>
+        <input class="input" type="text">
+        <p class="label">Título <span class="asterisco">*</span></p>
+        <input class="input" type="text">
+        <p class="label">Problema <span class="asterisco">*</span></p>
+        <select class="input box" name="" onchange="aparecerBox()" id="problema1">
+            <option value="">Selecione um problema</option>
+            <option value="CPU">Consumo da CPU</option>
+            <option value="RAM">Consumo da Ram</option>
+            <option value="HD">Consumo de HD</option>
+        </select>
+        <select class="input box" name="" onchange="aparecerBox()" id="problema2">
+            <option value="">Selecione um problema</option>
+            <option value="CPU">Consumo da CPU</option>
+            <option value="RAM">Consumo da Ram</option>
+            <option value="HD">Consumo de HD</option>
+        </select>
+        <select class="input box" name="" id="problema3">
+            <option value="">Selecione um problema</option>
+            <option value="CPU">Consumo da CPU</option>
+            <option value="RAM">Consumo da Ram</option>
+            <option value="HD">Consumo de HD</option>
+        </select>
+        <p class="label">Descreva <span class="asterisco">*</span></p>
+        <textarea class="input area" name="" id="" cols="30" rows="10"></textarea>
+
+        <button class="btn_enviar">Enviar chamado</button>
+    </div>
+
+    <img class="img_card" src="css/img/boneco.png" alt="">
+<!-- Fim card -->
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+<!-- Início legenda -->
+
+    <!-- <a href="dashboard.html"> <img src="css/img/casa_azul.png" id="casa"></img> </a>
+    <a href="help.html"> <img src="css/img/help_azul.png" id="help"></img> </a> -->
+
+<!-- Fim legenda -->
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+</body>
+</html>
+
+<script>
+    function aparecerBox() {
+        if (problema1.value != "" && problema2.value != "") {
+            problema2.style.display = "block"
+            problema3.style.display = "block"
+        } else if (problema1.value != "") {
+            problema2.style.display = "block"
+            problema3.style.display = "none"
+        } else if (problema1.value == "" && problema2.value == "") {
+            problema2.style.display = "none"
+            problema3.style.display = "none"   
+        }
+    }
+    aparecerBox() 
+</script>

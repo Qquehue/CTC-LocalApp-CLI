@@ -1,0 +1,19 @@
+body{
+    background-color: var(--azulclaro);   
+   }
+   #help{
+       position: absolute;
+       right: 7%;
+       border: transparent;
+       background-size: cover;
+       width: 3vw;
+       bottom: 2.4vh;
+   }
+   #casa{
+       position: absolute;
+       right: 11%;
+       border: transparent;
+       background-size: cover;
+       width: 3vw;
+       bottom: 2.4vh;
+   }

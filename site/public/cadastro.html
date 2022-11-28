@@ -1,0 +1,228 @@
+<!DOCTYPE html> 
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="icon" href="css/img/icon.png">
+    <link rel="stylesheet" href="css/body.css">
+    <!-- <link rel="stylesheet" href="css/cabecalho.css"> -->
+    <!-- <link rel="stylesheet" href="css/rodape.css"> -->
+    <link rel="stylesheet" href="css/root.css">
+    <link rel="stylesheet" href="css/cadastro.css">
+</head>
+<body>
+
+<!-- Início Imagem Cadastro -->
+<div class="div_cadastro">
+    <div id="imagem_cadastro">
+        <img src="css/img/imagem cadastro.jpg" alt="Imagem do cadastro">
+        <label>Venha fazer parte da<br>Console Tech Consulting</label>
+    </div>
+
+<!-- Fim da Imagem Cadastro -->
+
+<!-- ----------------------------------------------------------------------------------------------------------->
+
+<!-- Início Cadastro Card -->
+
+    <div id="cadastro_card">
+        <div class="imagem_card">
+            <a href="index.html"><img src="css/img/logo azul escuro.png" alt="" class="imagem"></a>
+        </div>
+        <div class="div_home">
+            <a href="index.html"><h2>🠔 Home</h2></a>
+        </div>
+
+        <div class="inputs_card">
+            <h2>Crie uma conta</h2>
+            <input id="ipt_nome" class="ipt_cadastro" type="text" placeholder="Nome">
+            <div class="inputs_cpf_telefone">
+                <input id="ipt_cpf" type="number" placeholder="CPF" >
+                <input id="ipt_tel" type="number" placeholder="Telefone">
+            </div>
+
+            <select name="cargos" id="select_cargos" onchange="comboCargo()">
+                <option value="">-- Selecione o cargo --</option>
+                <option value="1">Analista</option>
+                <option value="2">Gerente</option>
+            </select>
+  
+            <select name="linha" id="select_linha" onchange="comboLinha()">
+                <option value="">-- Selecione a linha --</option>
+                <option value="1">Azul</option>
+                <option value="2">Verde</option>
+                <option value="3">Vermelha</option>                
+            </select>
+
+            <div id="div_estacao">
+                <select name="estacao" id="select_estacao" style="display: flex">
+                    <option value="">-- Selecione a estação --</option>
+                </select>
+            </div>
+            <input id="ipt_email" class="ipt_cadastro" type="email" placeholder="E-mail">
+            <div class="inputs_senha_confirSenha">
+                <input id="ipt_senha" type="password" placeholder="Senha">
+                <!-- <input id="ipt_confirmar" type="password" placeholder="Confirmação da Senha"> -->
+            </div>
+            <button onclick="cadastrar()" class="btn_cadastrar">Cadastrar</button>
+            <div id="div_validacao" class="validar"></div>
+            <p class="texto_card">Você já possui uma conta? <a href="login.html" class="texto_card"><b><u>Login</u></b></a></p>
+        </div>
+    </div>
+</div>
+<!-- Fim Cadastro Card -->
+</body>
+</html>
+
+<script>
+
+    function comboCargo() {
+        if (select_cargos.value == "2") {
+            div_estacao.style.display = "none";
+        }else{
+            div_estacao.style.display = "block";
+        }
+    }
+
+    function comboLinha() {
+        if (select_linha.value == "") {
+            select_estacao.innerHTML = `
+            <option value="">-- Selecione a estação --</option>
+            `
+        }
+        else if (select_linha.value == "1") {             
+            select_estacao.innerHTML = `
+            <option value="">-- Selecione a estação --</option>
+            <option value="tucuruvi"> Tucuruvi </option>
+            <option value="paraiso"> Paraíso </option>
+            <option value="se">Sé</option>
+            `
+        } 
+        else if (select_linha.value == "2") {             
+            select_estacao.innerHTML = `
+            <option value="">-- Selecione a estação --</option>
+            <option value="vila_madalena"> Vila Madalena </option>
+            <option value="tamanduatei"> Tamanduateí </option>
+            <option value="vila_prudente">Vila Prudente</option>
+            `
+        }
+        else if (select_linha.value == "3") {             
+            select_estacao.innerHTML = `
+            <option value="">-- Selecione a estação --</option>
+            <option value="republica"> República </option>
+            <option value="tatuape"> Tatuapé </option>
+            <option value="carrao"> Carrão </option>
+            `
+        }
+    }
+
+    function cadastrar() {
+
+        var nomeVar = ipt_nome.value;
+        var cpfVar = ipt_cpf.value;
+        var telefoneVar = ipt_tel.value;
+        var cargosVar = select_cargos.value;
+        var linhaVar = select_linha.value;
+        var estacaoVar = select_estacao.value
+        var emailVar = ipt_email.value;
+        var senhaVar = ipt_senha.value;
+
+        if (nomeVar.indexOf(1) != -1 || nomeVar.indexOf(2) != -1 || nomeVar.indexOf(3) != -1 || nomeVar.indexOf(4) != -1 || nomeVar.indexOf(5) != -1 || nomeVar.indexOf(6) != -1 || nomeVar.indexOf(7) != -1  || nomeVar.indexOf(8) != -1 || nomeVar.indexOf(9) != -1 || nomeVar.indexOf(0) != -1) {
+        div_validacao.innerHTML = "*Não pode haver números no nome*"
+        }
+        else if (nomeVar == "") {
+            div_validacao.innerHTML = "*Insira um nome*"
+            
+        }
+    
+        else if (emailVar.indexOf('@') == -1 || emailVar.indexOf('.com') == -1 && emailVar.indexOf('.COM') == -1) {
+            div_validacao.innerHTML = "*Email inválido*"
+        }
+        
+        else if (emailVar == "") {
+            div_validacao.innerHTML = "*Insira um email*"
+            
+        }
+
+        else if (telefoneVar.length > 11 || telefoneVar.length < 10) {
+            div_validacao.innerHTML = "*Número de telefone inválido, confira se você colocou DDD*" 
+        }
+        
+        else if (telefoneVar == "") {
+            div_validacao.innerHTML = "*Insira um telefone*"
+            
+        }
+
+        else if (cpfVar.length != 11 ) {
+            div_validacao.innerHTML = "*CPF inválido*" 
+        }
+        
+        else if (cpfVar == "") {
+            div_validacao.innerHTML = "*Insira um cpf*"
+            
+        }
+
+        else if (senhaVar.length < 6 ) {
+            div_validacao.innerHTML = "*Insira pelo menos 6 caracteres na senha*" 
+        }
+
+        else if (senhaVar.indexOf(0) == -1 && senhaVar.indexOf(1) == -1 && senhaVar.indexOf(2) == -1 && senhaVar.indexOf(3) == -1 && senhaVar.indexOf(4) == -1 && senhaVar.indexOf(5) == -1 && senhaVar.indexOf(6) == -1 && senhaVar.indexOf(7) == -1 && senhaVar.indexOf(8) == -1 && senhaVar.indexOf(9) == -1) {
+            div_validacao.innerHTML = "*Insira números na sua senha*" 
+        }
+        else if (cargosVar == "") {
+            div_validacao.innerHTML = "Inserir um cargo"
+        }
+        else if (linhaVar == "") {
+            div_validacao.innerHTML = "Inserir uma linha"
+        }
+        else{
+            div_validacao.innerHTML = ""
+            alert('* Cadastrado com sucesso *')
+            setInterval(sumirMensagem, 5000)
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+
+                nomeServer: nomeVar,
+                cpfServer: cpfVar,
+                telefoneServer: telefoneVar,
+                cargosServer: cargosVar,
+                linhaServer: linhaVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar,
+                estacaoServer: estacaoVar
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                setTimeout(() => {
+                    window.location = "login.html";
+                }, "2000")
+                
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none";
+    }
+
+        }
+</script>
