@@ -1,2 +1,2 @@
-# CTC-LocalApp-CLI
-Versão CLI do LocalApp da Console Tech Consulting
+# Console-Tech-Consulting
+Projeto do 2 semestre - SPTech

@@ -37,7 +37,7 @@ public class AppSlack {
         String cpus = Conversor.formatarBytes(proc.getUso().longValue()).replace("GiB", "").replace(",", ".").replace("bytes", "");
         Double cpuAtual = Double.parseDouble(cpus);
 
-        Validacao maquinaSlack = new Validacao(1, cpuAtual, memoriaAtual, 50.0);
+        Validacao maquinaSlack = new Validacao(1, cpuAtual, memoriaAtual, 50);
 
         maquinaSlack.validarMaquina(json);
         

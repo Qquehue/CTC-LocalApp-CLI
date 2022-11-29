@@ -18,18 +18,18 @@ import org.json.JSONObject;
  * @author Victor
  */
 public class Validacao {
-    
+
     private Integer idMaquina;
     private Double usoCPU;
     private Double usoMemoria;
-    private Double usoDisco;
+    private Integer qtdProcessos;
 
-    public Validacao(Integer idMaquina, Double usoCPU, Double usoMemoria, Double usoDisco) {
-        
+    public Validacao(Integer idMaquina, Double usoCPU, Double usoMemoria, Integer qtdProcessos) {
+
         this.idMaquina = idMaquina;
         this.usoCPU = usoCPU;
         this.usoMemoria = usoMemoria;
-        this.usoDisco = usoDisco;
+        this.qtdProcessos = qtdProcessos;
     }
 
     public Integer getIdMaquina() {
@@ -56,26 +56,71 @@ public class Validacao {
         this.usoMemoria = usoMemoria;
     }
 
-    public Double getUsoDisco() {
-        return usoDisco;
+    public Integer getQtdProcessos() {
+        return qtdProcessos;
     }
 
-    public void setUsoDisco(Double usoDisco) {
-        this.usoDisco = usoDisco;
+    public void setQtdProcessos(Integer qtdProcessos) {
+        this.qtdProcessos = qtdProcessos;
     }
-    
-    public void validarMaquina (JSONObject json) throws IOException, InterruptedException {
 
-            json.put("text", String.format("\nId da Máquina: %d"
+    public void validarMaquina(JSONObject json) throws IOException, InterruptedException {
+
+        json.put("text", String.format("\nId da Máquina: %d"
                 + "\nUso CPU: %.2f"
                 + "\nUso Memória: %.2f"
-                + "\nUso Disco: %.2f"
-                + "\nFazer manutenção na máquina %d", 
+                + "\nQuantidade de Processos: %d"
+                + "\nFazer manutenção na máquina %d",
                 idMaquina,
                 usoCPU,
                 usoMemoria,
-                usoDisco,
+                qtdProcessos,
                 idMaquina));
-            Slack.sendMessage(json);
+        Slack.sendMessage(json);
+    }
+
+    public void validarMaquinaDois(JSONObject json, Integer id) throws IOException, InterruptedException {
+
+        Looca looca = new Looca();
+        Maquina maquina = new Maquina();
+        Processador proc = new Processador();
+        Memoria memoria = new Memoria();
+        Sistema sistema = new Sistema();
+        DiscosGroup discos = new DiscosGroup();
+        Conversor conversor = new Conversor();
+
+        String memoriasHD = Conversor.formatarBytes(discos.getTamanhoTotal()).replace("GiB", "").replace(",", ".");
+        Double memoriaHDAtual = Double.parseDouble(memoriasHD);
+        String memorias = Conversor.formatarBytes(memoria.getTotal()).replace("GiB", "").replace(",", ".");
+        Double memoriaAtual = Double.parseDouble(memorias);
+        Integer cpusFisicos = proc.getNumeroCpusFisicas();
+        Integer cpusLogicas = proc.getNumeroCpusLogicas();
+        String fabricante = proc.getFabricante();
+        String nomeProc = proc.getNome();
+        String frequencia = Conversor.formatarBytes(proc.getFrequencia()).replace("GiB", "").replace(",", ".");
+        String so = sistema.getSistemaOperacional();
+
+        json.put("text", String.format(
+                "--- Informações ---\n"
+                + "ID máquina:   %d \n"
+                + "Processador:  %s \n"
+                + "Fabricante:   %s \n"
+                + "CPU - física: %s \n"
+                + "CPU - lógica: %s \n"
+                + "Memória HD:   %.0f \n"
+                + "Memória RAM:  %.0f \n"
+                + "SO:           %s",
+                id,
+                nomeProc,
+                fabricante,
+                cpusFisicos,
+                cpusLogicas,
+                memoriaHDAtual,
+                memoriaAtual,
+                so));
+
+        Slack.sendMessage(json);
+
+        System.out.println("Seu log foi gravado com sucesso :)\n");
     }
 }

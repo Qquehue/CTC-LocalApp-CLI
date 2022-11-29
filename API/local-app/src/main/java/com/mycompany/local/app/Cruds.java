@@ -43,12 +43,6 @@ public class Cruds {
     private DiscosGroup discos = new DiscosGroup();
     private ProcessosGroup processos = new ProcessosGroup();
     Conversor conversor = new Conversor();
-    
-
-
-    
-    
-    
 
     public Cruds() {
         BasicDataSource dataSource = new BasicDataSource();
@@ -59,12 +53,10 @@ public class Cruds {
 
     public void programa(Integer id) throws IOException, InterruptedException {
 
-        
         // Parte de inserção banco local
-        
         conexao.conectar();
         JdbcTemplate database = conexao.getConnection();
-        
+
         maquina.setUsoMemoria(memoria.getEmUso().doubleValue());
         String memorias = Conversor.formatarBytes(memoria.getEmUso()).replace("GiB", "").replace(",", ".");
         Double memoriaAtual = Double.parseDouble(memorias);
@@ -77,52 +69,43 @@ public class Cruds {
         Double porcentagemSlack = (memoriaAtual / memoriaTotal) * 100;
         String x = String.valueOf(porcentagemSlack);
         Float porcentagemAzure = Float.valueOf(x);
-        
-        
-        
-        
+
         String insertBanco = "INSERT INTO usoMaquinaReal VALUES (null,?,?,?,CURRENT_TIMESTAMP,?)";
         database.update(insertBanco, processosAtual, cpuAtual, memoriaAtual, id);
-        
-        
-        
+
         // parte de inserção banco Azure
-        
         conexaoAzure.conectarAzure();
         JdbcTemplate databaseAzure = conexaoAzure.getConnectionAzure();
-        
+
         Float cpuAzure = Float.valueOf(cpus);
-        
+
         String insertBancoAzure = "INSERT INTO UsoMaquina VALUES (?,?,?,CURRENT_TIMESTAMP,?)";
         databaseAzure.update(insertBancoAzure, processosAtual, cpuAzure, porcentagemAzure, id);
-        
-        
-        
-        
-        
+
         // Parte de conexao slack
-        
-        
-        
         System.out.println(x);
-        
-        if (cpuAtual > 90 || porcentagemSlack > 90) {
-            
-            JSONObject json = new JSONObject();
-            Validacao maquinaSlack = new Validacao(id, cpuAtual, porcentagemSlack, 50.0);
-            maquinaSlack.validarMaquina(json);
-            
-        }
+
+//        if (cpuAtual > 20 || porcentagemSlack > 65) {
+//
+//            JSONObject json = new JSONObject();
+//            Validacao maquinaSlack = new Validacao(id, cpuAtual, porcentagemSlack, processosAtual);
+//            maquinaSlack.validarMaquina(json);
+//
+//        }
+
+//        if (cpuAtual > 1 && porcentagemSlack > 1 && processosAtual > 1) {
+//
+//            JSONObject json = new JSONObject();
+//            Validacao maquinaSlack = new Validacao(id, cpuAtual, porcentagemSlack, processosAtual);
+//            maquinaSlack.validarMaquinaDois(json, id);
+//        }
 
     }
 
-    
 //    public Maquina returnBytes() {
 //    Double memorias = maquina.getUsoMemoria();
 //        
 //    };
-    
-    
     /*public static void main(String[] args) {
         DiscosGroup grupoDeDiscos = new DiscosGroup();
         List<Disco> discos = grupoDeDiscos.getDiscos();
@@ -152,7 +135,4 @@ public class Cruds {
 //    
 //      
 //   }
-
-    }
-    
-
+}
