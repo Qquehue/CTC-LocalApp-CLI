@@ -54,8 +54,8 @@ public class Cruds {
     public void programa(Integer id) throws IOException, InterruptedException {
 
         // Parte de inserção banco local
-//        conexao.conectar();
-//        JdbcTemplate database = conexao.getConnection();
+        conexao.conectar();
+        JdbcTemplate database = conexao.getConnection();
 
         maquina.setUsoMemoria(memoria.getEmUso().doubleValue());
         String memorias = Conversor.formatarBytes(memoria.getEmUso()).replace("GiB", "").replace(",", ".");
@@ -66,12 +66,12 @@ public class Cruds {
         Integer processosAtual = processos.getTotalProcessos();
         String memoria2 = Conversor.formatarBytes(memoria.getTotal()).replace("GiB", "").replace(",", ".");
         Double memoriaTotal = Double.parseDouble(memoria2);
-        Double porcentagemSlack = (memoriaAtual / memoriaTotal) * 100;
-        String x = String.valueOf(porcentagemSlack);
+        Double memoriaEmUso = (memoriaAtual / memoriaTotal) * 100;
+        String x = String.valueOf(memoriaEmUso);
         Float porcentagemAzure = Float.valueOf(x);
 
-//        String insertBanco = "INSERT INTO usoMaquinaReal VALUES (null,?,?,?,CURRENT_TIMESTAMP,?)";
-//        database.update(insertBanco, processosAtual, cpuAtual, memoriaAtual, id);
+        String insertBanco = "INSERT INTO usoMaquinaReal VALUES (null,?,?,?,CURRENT_TIMESTAMP,?)";
+        database.update(insertBanco, processosAtual, cpuAtual, memoriaAtual, id);
 
         // parte de inserção banco Azure
         conexaoAzure.conectarAzure();
@@ -85,20 +85,37 @@ public class Cruds {
         // Parte de conexao slack
         System.out.println(x);
 
-//        if (cpuAtual > 20 || porcentagemSlack > 65) {
-//
-//            JSONObject json = new JSONObject();
-//            Validacao maquinaSlack = new Validacao(id, cpuAtual, porcentagemSlack, processosAtual);
-//            maquinaSlack.validarMaquina(json);
-//
-//        }
+        if (cpuAtual > 50.0) {
 
-//        if (cpuAtual > 1 && porcentagemSlack > 1 && processosAtual > 1) {
-//
-//            JSONObject json = new JSONObject();
-//            Validacao maquinaSlack = new Validacao(id, cpuAtual, porcentagemSlack, processosAtual);
-//            maquinaSlack.validarMaquinaDois(json, id);
-//        }
+            JSONObject json = new JSONObject();
+            Validacao maquinaSlack = new Validacao(id, cpuAtual, memoriaEmUso, processosAtual);
+            maquinaSlack.validarCPU(json);
+
+        }
+        
+        if (memoriaEmUso > 60.0) {
+
+            JSONObject json = new JSONObject();
+            Validacao maquinaSlack = new Validacao(id, cpuAtual, memoriaEmUso, processosAtual);
+            maquinaSlack.validarMemoria(json);
+
+        }
+        
+        if (processosAtual > 150) {
+
+            JSONObject json = new JSONObject();
+            Validacao maquinaSlack = new Validacao(id, cpuAtual, memoriaEmUso, processosAtual);
+            maquinaSlack.validarProcessos(json);
+
+        }
+
+        if (cpuAtual > 50.0 && memoriaEmUso > 60.0 && processosAtual > 200) {
+
+            JSONObject json = new JSONObject();
+            Validacao maquinaSlack = new Validacao(id, cpuAtual, memoriaEmUso, processosAtual);
+            maquinaSlack.validarMaquina(json, id);
+            
+        }
 
     }
 

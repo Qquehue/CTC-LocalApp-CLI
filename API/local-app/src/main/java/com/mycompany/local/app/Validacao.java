@@ -11,6 +11,9 @@ import com.github.britooo.looca.api.group.processador.Processador;
 import com.github.britooo.looca.api.group.sistema.Sistema;
 import com.github.britooo.looca.api.util.Conversor;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.json.JSONObject;
 
 /**
@@ -64,22 +67,28 @@ public class Validacao {
         this.qtdProcessos = qtdProcessos;
     }
 
-    public void validarMaquina(JSONObject json) throws IOException, InterruptedException {
+    public void validarCPU(JSONObject json) throws IOException, InterruptedException {
 
-        json.put("text", String.format("\nId da Máquina: %d"
-                + "\nUso CPU: %.2f"
-                + "\nUso Memória: %.2f"
-                + "\nQuantidade de Processos: %d"
-                + "\nFazer manutenção na máquina %d",
-                idMaquina,
-                usoCPU,
-                usoMemoria,
-                qtdProcessos,
+        json.put("text", String.format("\nA Máquina %d está com problemas de CPU!",
                 idMaquina));
         Slack.sendMessage(json);
     }
 
-    public void validarMaquinaDois(JSONObject json, Integer id) throws IOException, InterruptedException {
+    public void validarMemoria(JSONObject json) throws IOException, InterruptedException {
+
+        json.put("text", String.format("\nA Máquina %d está com problemas de memória!",
+                idMaquina));
+        Slack.sendMessage(json);
+    }
+
+    public void validarProcessos(JSONObject json) throws IOException, InterruptedException {
+
+        json.put("text", String.format("\nA Máquina %d está com muitos processos abertos!",
+                idMaquina));
+        Slack.sendMessage(json);
+    }
+
+    public void validarMaquina(JSONObject json, Integer id) throws IOException, InterruptedException {
 
         Looca looca = new Looca();
         Maquina maquina = new Maquina();
@@ -89,7 +98,7 @@ public class Validacao {
         DiscosGroup discos = new DiscosGroup();
         Conversor conversor = new Conversor();
 
-        String memoriasHD = Conversor.formatarBytes(discos.getTamanhoTotal()).replace("GiB", "").replace(",", ".");
+        String memoriasHD = Conversor.formatarBytes(discos.getTamanhoTotal()).replace("TiB", "").replace(",", ".");
         Double memoriaHDAtual = Double.parseDouble(memoriasHD);
         String memorias = Conversor.formatarBytes(memoria.getTotal()).replace("GiB", "").replace(",", ".");
         Double memoriaAtual = Double.parseDouble(memorias);
@@ -100,26 +109,39 @@ public class Validacao {
         String frequencia = Conversor.formatarBytes(proc.getFrequencia()).replace("GiB", "").replace(",", ".");
         String so = sistema.getSistemaOperacional();
 
-        json.put("text", String.format(
-                "--- Informações ---\n"
-                + "ID máquina:   %d \n"
-                + "Processador:  %s \n"
-                + "Fabricante:   %s \n"
-                + "CPU - física: %s \n"
-                + "CPU - lógica: %s \n"
-                + "Memória HD:   %.0f \n"
-                + "Memória RAM:  %.0f \n"
-                + "SO:           %s",
-                id,
-                nomeProc,
-                fabricante,
-                cpusFisicos,
-                cpusLogicas,
-                memoriaHDAtual,
-                memoriaAtual,
-                so));
+        json.put("text", String.format("**MÁQUINA %d COM CPU, MEMÓRIA RAM E PROCESSOS TOTALMENTE SOBRECARREGADOS, FAZER MANUTENÇÃO URGENTE!!!**\n\n\n"
+                        + "--- Informações --- \n\n"
+                        + "ID máquina:   %d \n"
+                        + "Processador:  %s \n"
+                        + "Fabricante:   %s \n"
+                        + "CPU - físico: %s \n"
+                        + "CPU - lógico: %s \n"
+                        + "Memória HD:   %.0f \n"
+                        + "Memória RAM:  %.0f \n"
+                        + "Frequência:   %s \n"
+                        + "SO:           %s \n\n"
+                        + "--- Informações de Uso --- \n"
+                        + "\nUso CPU (por cento): %.2f"
+                        + "\nUso Memória (por cento): %.2f"
+                        + "\nQuantidade de Processos: %d"
+                        + "\n\n\nEm caso de dúvidas entre em contato conosco a CTC - Console Tech Consulting!\n"
+                        + "Email: consoletechconsulting@gmail.com", 
+                        idMaquina,
+                        id,
+                        nomeProc,
+                        fabricante,
+                        cpusFisicos,
+                        cpusLogicas,
+                        memoriaHDAtual,
+                        memoriaAtual,
+                        frequencia,
+                        so,
+                        usoCPU,
+                        usoMemoria,
+                        qtdProcessos,
+                        idMaquina));
 
-        Slack.sendMessage(json);
+        Slack.sendLog(json);
 
         System.out.println("Seu log foi gravado com sucesso :)\n");
     }

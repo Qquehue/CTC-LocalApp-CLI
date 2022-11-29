@@ -48,15 +48,15 @@ public class Log {
             
             //Cria um novo diretório
 //            File myDir = new File ("/home/ubuntu/Desktop/Logs");
-            File myDir = new File ("C:\\Users\\FP594HT\\Downloads\\LogsAtual");
-            myDir.mkdir();
+            // File myDir = new File ("C:\\Users\\FP594HT\\Downloads\\LogsAtual");
+            // myDir.mkdir();
             
             //Cria um arquivo .txt no caminhos destinado
 //            FileWriter arqLog = new FileWriter
 //            (String.format("/home/ubuntu/Desktop/Logs/log %s.txt", 
 //            dateHoursFormat.format(dateHours)));
             FileWriter arqLog = new FileWriter
-            (String.format("C:\\Users\\FP594HT\\Downloads\\LogsAtual\\log %s.txt", 
+            (String.format("C:\\Users\\Victor\\Desktop\\Testando\\log %s.txt", 
             dateHoursFormat.format(dateHours)));
             
             //Faz gravação dos arquivos
@@ -65,7 +65,7 @@ public class Log {
             for (int i = 0; i < 1; i++) {
                 Date hours = new Date();
                 
-                String memoriasHD = Conversor.formatarBytes(discos.getTamanhoTotal()).replace("GiB", "").replace(",", ".");
+                String memoriasHD = Conversor.formatarBytes(discos.getTamanhoTotal()).replace("TiB", "").replace(",", ".");
                 Double memoriaHDAtual = Double.parseDouble(memoriasHD);
                 
                 String memorias = Conversor.formatarBytes(memoria.getTotal()).replace("GiB", "").replace(",", ".");

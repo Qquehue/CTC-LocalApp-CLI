@@ -39,7 +39,7 @@ public class AppSlack {
 
         Validacao maquinaSlack = new Validacao(1, cpuAtual, memoriaAtual, 50);
 
-        maquinaSlack.validarMaquina(json);
+        maquinaSlack.validarMaquina(json, 1);
         
         }
 }

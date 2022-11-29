@@ -21,7 +21,7 @@ public class Conexao {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/CTC");
         dataSource.setUsername("root");
-        dataSource.setPassword("urubu100");
+        dataSource.setPassword("");
         
         this.conexao = new JdbcTemplate(dataSource);
     }
