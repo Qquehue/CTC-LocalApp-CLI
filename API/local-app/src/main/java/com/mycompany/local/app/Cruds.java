@@ -54,8 +54,8 @@ public class Cruds {
     public void programa(Integer id) throws IOException, InterruptedException {
 
         // Parte de inserção banco local
-        conexao.conectar();
-        JdbcTemplate database = conexao.getConnection();
+//        conexao.conectar();
+//        JdbcTemplate database = conexao.getConnection();
 
         maquina.setUsoMemoria(memoria.getEmUso().doubleValue());
         String memorias = Conversor.formatarBytes(memoria.getEmUso()).replace("GiB", "").replace(",", ".");
@@ -70,8 +70,8 @@ public class Cruds {
         String x = String.valueOf(porcentagemSlack);
         Float porcentagemAzure = Float.valueOf(x);
 
-        String insertBanco = "INSERT INTO usoMaquinaReal VALUES (null,?,?,?,CURRENT_TIMESTAMP,?)";
-        database.update(insertBanco, processosAtual, cpuAtual, memoriaAtual, id);
+//        String insertBanco = "INSERT INTO usoMaquinaReal VALUES (null,?,?,?,CURRENT_TIMESTAMP,?)";
+//        database.update(insertBanco, processosAtual, cpuAtual, memoriaAtual, id);
 
         // parte de inserção banco Azure
         conexaoAzure.conectarAzure();

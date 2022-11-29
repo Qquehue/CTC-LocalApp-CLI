@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 /**
  *
@@ -61,10 +62,10 @@ public class appCli {
             System.out.println("Insira o id da Maquina");
 
             Integer idMaquina = maquina.nextInt();
-
-            log.gerarLog(email, idMaquina);
-            TesteSistema iniciarDados = new TesteSistema(idMaquina);
-            iniciarDados.exec();
+//
+//            log.gerarLog(email, idMaquina);
+//            TesteSistema iniciarDados = new TesteSistema(idMaquina);
+//            iniciarDados.exec();
 
         }
 
@@ -73,9 +74,9 @@ public class appCli {
 
             Integer idMaquina = maquina.nextInt();
 
-            log.gerarLog(email, idMaquina);
-            TesteSistema iniciarDados = new TesteSistema(idMaquina);
-            iniciarDados.exec();
+//            log.gerarLog(email, idMaquina);
+//            TesteSistema iniciarDados = new TesteSistema(idMaquina);
+//            iniciarDados.exec();
         }
 
     }

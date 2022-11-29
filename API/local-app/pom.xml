@@ -22,7 +22,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.mycompany.local.app.app</mainClass> 
+                            <mainClass>com.mycompany.local.app.appCli</mainClass> 
                         </manifest>
                     </archive>
                 </configuration>
