@@ -67,7 +67,7 @@ public class TeladeLogin extends javax.swing.JFrame {
         jScrollPane1.setBorder(null);
 
         jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(214, 217, 223));
+        jTextArea1.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("SansSerif", 0, 48)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(13, 33, 161));
@@ -119,7 +119,7 @@ public class TeladeLogin extends javax.swing.JFrame {
         jScrollPane3.setBorder(null);
 
         jTextArea3.setEditable(false);
-        jTextArea3.setBackground(new java.awt.Color(214, 217, 223));
+        jTextArea3.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea3.setColumns(20);
         jTextArea3.setFont(new java.awt.Font("SansSerif", 3, 24)); // NOI18N
         jTextArea3.setForeground(new java.awt.Color(13, 33, 161));

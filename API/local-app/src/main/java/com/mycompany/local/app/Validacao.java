@@ -98,7 +98,7 @@ public class Validacao {
         DiscosGroup discos = new DiscosGroup();
         Conversor conversor = new Conversor();
 
-        String memoriasHD = Conversor.formatarBytes(discos.getTamanhoTotal()).replace("TiB", "").replace(",", ".");
+        String memoriasHD = Conversor.formatarBytes(discos.getTamanhoTotal()).replace("GiB", "").replace(",", ".");
         Double memoriaHDAtual = Double.parseDouble(memoriasHD);
         String memorias = Conversor.formatarBytes(memoria.getTotal()).replace("GiB", "").replace(",", ".");
         Double memoriaAtual = Double.parseDouble(memorias);

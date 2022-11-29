@@ -47,17 +47,17 @@ public class Log {
             System.out.print("Captando log das máquinas...\n");
             
             //Cria um novo diretório
-//            File myDir = new File ("/home/ubuntu/Desktop/Logs");
+            File myDir = new File ("/home/ubuntu/Logs");
             // File myDir = new File ("C:\\Users\\FP594HT\\Downloads\\LogsAtual");
-            // myDir.mkdir();
+             myDir.mkdir();
             
             //Cria um arquivo .txt no caminhos destinado
-//            FileWriter arqLog = new FileWriter
-//            (String.format("/home/ubuntu/Desktop/Logs/log %s.txt", 
-//            dateHoursFormat.format(dateHours)));
             FileWriter arqLog = new FileWriter
-            (String.format("C:\\Users\\Victor\\Desktop\\Testando\\log %s.txt", 
+            (String.format("/home/ubuntu/Logs/log %s.txt", 
             dateHoursFormat.format(dateHours)));
+//            FileWriter arqLog = new FileWriter
+//            (String.format("C:\\Users\\Victor\\Desktop\\Testando\\log %s.txt", 
+//            dateHoursFormat.format(dateHours)));
             
             //Faz gravação dos arquivos
             PrintWriter gravarArqLog = new PrintWriter(arqLog);
